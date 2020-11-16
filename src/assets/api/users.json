@@ -1,0 +1,17 @@
+[
+    {
+        "id":0,
+        "email":"dev0@dev.com",
+        "credit":150
+    },
+    {
+        "id":1,
+        "email":"dev1@dev.com",
+        "credit":-30
+    },
+    {
+        "id":2,
+        "email":"dev2@dev.com",
+        "credit":50
+    }
+]

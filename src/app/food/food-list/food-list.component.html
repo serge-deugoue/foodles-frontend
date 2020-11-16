@@ -1,0 +1,7 @@
+<h3 class="mt-5">Livraison</h3>
+<div class="row mt-5" style="width: 100%;">
+    <ng-container *ngFor="let food of foodList$ |async">
+        <app-food-item [food]="food"></app-food-item>
+    </ng-container>
+
+</div>

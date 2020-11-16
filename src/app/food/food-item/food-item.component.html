@@ -1,0 +1,29 @@
+<div class="col-sm-3">
+    <div class="card mb-3" style="width: 14rem;">
+        <div class="pos-r">
+            <img class="card-img-top food-image" [src]="food.imageUrl" alt="Food image">
+            <div class="card-img-overlay text-center" *ngIf="amtInBasket>=1">
+                <h1 class=" overlay-text text-white" style="margin:auto;">{{amtInBasket}}</h1>
+            </div>
+        </div>
+
+        <div class="card-body">
+            <h6 class="card-title">{{food.title | truncate:38}}</h6>
+            <p class="card-text text-muted"> {{food.price | currency:'EUR':'symbol':'.2-2'}} </p>
+            <div class="d-flex flex-row-reverse">
+                <!-- if the item is not selected -->
+                <button *ngIf="!amtInBasket || amtInBasket===0 ; else controlsSelected" class="btn btn-sm select-btn"
+                    (click)="addItemToCart()"> <i class="fa fa-download select-btn-icon"></i></button>
+                <!-- if the item is selected -->
+                <ng-template #controlsSelected>
+                    <button class="btn btn-sm remove-btn ml-2" (click)="subtractItemFromCart()"> <i
+                            class="fa fa-minus remove-btn-icon" aria-hidden="true"></i></button>
+
+                    <button class="btn btn-sm select-btn" (click)="addItemToCart()"> <i
+                            class="fa fa-plus select-btn-icon" aria-hidden="true"></i> </button>
+
+                </ng-template>
+            </div>
+        </div>
+    </div>
+</div>

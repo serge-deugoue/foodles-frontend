@@ -1,0 +1,33 @@
+.food-image {
+  width: 100%;
+  height: auto;
+}
+.select-btn-icon {
+  color: #0b615f;
+}
+
+.remove-btn-icon {
+  color: #ff8d92;
+}
+.select-btn {
+  background-color: #b8e5e9;
+}
+
+.remove-btn {
+  background-color: #ffe9ea;
+}
+.card-img-overlay {
+  background-color: #000000;
+  opacity: 0.5;
+  transition: 0.3 ease-in;
+}
+.pos-r {
+  position: relative;
+}
+
+.overlay-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
