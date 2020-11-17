@@ -1,8 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { NgbAlert } from '@ng-bootstrap/ng-bootstrap';
 import { Observable } from 'rxjs';
 import { IUser } from '../core/model/user';
 import { UserService } from '../core/services/user.service';
 import { FoodStoreService } from '../core/state/food-store.service';
+import { UserStoreService } from '../core/state/user-store.service';
 
 @Component({
   selector: 'app-home',
@@ -13,10 +15,13 @@ export class HomeComponent implements OnInit {
 
   basketTotal: number =null
   users$: Observable<IUser[]>
-  successMessage:string ="test"
-  errorMessage:string ="test"
+  successMessage:string
+  errorMessage:string 
+  
+  @ViewChild('errorAlert', {static: false}) errorAlert: NgbAlert;
+  @ViewChild('successAlert', {static: false}) successAlert: NgbAlert;
 
-  constructor( private foodStore: FoodStoreService, private userService:UserService) { 
+  constructor( private foodStore: FoodStoreService, private userService:UserService, private userStore : UserStoreService) { 
   }
 
   ngOnInit(): void {
@@ -54,6 +59,26 @@ export class HomeComponent implements OnInit {
 
   userString(user:IUser){
     return `${user.email} // ${user.credit} €`
+  }
+
+  submitBasket(){
+    // check if user is selected
+    if(!this.userStore.activeUser){
+      // user not  selected. show error      
+      this.errorMessage = "Please select a user"
+      setTimeout(() => this.errorAlert?.close(), 2000);
+
+    }
+    else{
+      // user is selected, submit the basket
+      this.successMessage = "Basket submitted successfully"
+      setTimeout(() => this.successAlert?.close(), 2000);
+    }
+  }
+
+  changeUser(userString: string){
+    let user = JSON.parse(userString)
+    this.userStore.setActiveUser(user)
   }
 
 }

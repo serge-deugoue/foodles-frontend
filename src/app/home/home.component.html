@@ -1,18 +1,24 @@
 <nav class="navbar navbar-dark">
-    <form class="form-inline">
-        <select class="custom-select" aria-placeholder="erers" style="width: 40vw;">
-            <option value="" selected disabled>Select a customer</option>
-            <option *ngFor="let user of users$ |async" value="1">{{userString(user)}}</option>
-        </select>
-    </form>
 
-    <button *ngIf="basketTotal" class="btn basket-btn"> <i class="fa fa-shopping-basket mr-2"></i> <span
-            class="font-weight-bold">
-            {{basketTotal | currency:'EUR':'symbol':'.2-2'}} </span>
-    </button>
+    <select class="custom-select" style="width: 40vw;" (change)="changeUser($event.target.value)">
+        <option [value]="undefined" selected disabled>Select a customer</option>
+        <option *ngFor="let user of users$ |async" [value]="user |json">{{userString(user)}}</option>
+    </select>
+
+    <ng-container>
+        <button class="btn basket-btn" (click)="submitBasket()" *ngIf="basketTotal"> <i
+                class=" fa fa-shopping-basket mr-2"></i> <span class="font-weight-bold">
+                {{basketTotal | currency:'EUR':'symbol':'.2-2'}} </span>
+        </button>
+    </ng-container>
+
+
 </nav>
 
-<ngb-alert #selfClosingAlert *ngIf="errorMessage" type="danger" (closed)="errorMessage = ''">{{ errorMessage }}
+<ngb-alert #errorAlert *ngIf="errorMessage" type="danger" (closed)="errorMessage = ''">{{ errorMessage }}
+</ngb-alert>
+
+<ngb-alert #successAlert *ngIf="successMessage" type="success" (closed)="successMessage = ''">{{ successMessage }}
 </ngb-alert>
 
 <div style="padding-left: 16px;">
