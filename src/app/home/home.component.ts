@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgbAlert } from '@ng-bootstrap/ng-bootstrap';
 import { Observable } from 'rxjs';
 import { IUser } from '../core/model/user';
+import { OrderService } from '../core/services/order.service';
 import { UserService } from '../core/services/user.service';
 import { FoodStoreService } from '../core/state/food-store.service';
 import { UserStoreService } from '../core/state/user-store.service';
@@ -21,11 +22,12 @@ export class HomeComponent implements OnInit {
   @ViewChild('errorAlert', {static: false}) errorAlert: NgbAlert;
   @ViewChild('successAlert', {static: false}) successAlert: NgbAlert;
 
-  constructor( private foodStore: FoodStoreService, private userService:UserService, private userStore : UserStoreService) { 
+  constructor( private foodStore: FoodStoreService, private userService:UserService, 
+    private userStore : UserStoreService, private orderService:OrderService) { 
   }
 
   ngOnInit(): void {
-    this.users$ = this.userService.getUsers()
+    this.users$ = this.userStore.userList$
     this.calculateBasketValue()
   }
 
@@ -71,8 +73,32 @@ export class HomeComponent implements OnInit {
     }
     else{
       // user is selected, submit the basket
-      this.successMessage = "Basket submitted successfully"
-      setTimeout(() => this.successAlert?.close(), 2000);
+      let basket = this.foodStore.foodBasket
+      let orderItems = Object.keys(basket).map( e=>{
+        return {food:parseInt(e), quantity:basket[e]}
+      });
+      let customer = this.userStore.activeUser.id
+      let order = {customer, orderItems}
+      this.orderService.orderFood(order).subscribe(
+        (result)=>{
+          if (result['succeed']===1){
+            // clear basket
+            this.foodStore.clearBasket()
+
+            // order successful, update user
+            this.userStore.updateUser(result['updatedUser'])
+            // update stocks
+            this.foodStore.updateFoodList()
+          }
+
+        },
+        err=>console.log(err),
+        ()=>{
+          this.successMessage = "Basket submitted successfully"
+          setTimeout(() => this.successAlert?.close(), 2000);
+        }
+      )
+      
     }
   }
 

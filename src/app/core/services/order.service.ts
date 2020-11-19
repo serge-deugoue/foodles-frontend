@@ -3,18 +3,19 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { IFood } from '../model/food';
+import { IOrder } from '../model/order';
 
 @Injectable({
   providedIn: 'root'
 })
-export class FoodService {
+export class OrderService {
 
-
-  private url = environment.apiUrl+'api/food/'
+  private url = environment.apiUrl+'api/order/'
 
   constructor(private http: HttpClient) { }
 
-  getFoodsList(): Observable<IFood[]>{
-    return this.http.get<IFood[]>(this.url)
+  orderFood(order : IOrder) {
+    return this.http.post(this.url, order)
   }
+
 }

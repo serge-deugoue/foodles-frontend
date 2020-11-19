@@ -4,20 +4,20 @@
         "title": "Aiguilletes de poulet au miel et nouilles soba aux légumes",
         "price":4.90,
         "stock":5,
-        "imageUrl":"assets/images/Aiguillettes_de_poulet_au_miel_et_nouilles_soba_aux_legumes.jpg"
+        "imageName":"Aiguillettes_de_poulet_au_miel_et_nouilles_soba_aux_legumes.jpg"
     },
     {
         "id":1,
         "title": "Aiguilletes de poulet au miel semoule épicée et carottes",
         "price":5.90,
         "stock":5,
-        "imageUrl":"assets/images/Aiguillettes_de_poulet_au_miel_semoule_epicee_et_carottes_roties.jpg"
+        "imageName":"Aiguillettes_de_poulet_au_miel_semoule_epicee_et_carottes_roties.jpg"
     },
     {
         "id":2,
         "title": "Poulet coco curry riz et patate douce",
         "price":6.90,
         "stock":5,
-        "imageUrl":"assets/images/Poulet_coco_curry_ecrase_patate_douce.jpg"
+        "imageName":"Poulet_coco_curry_ecrase_patate_douce.jpg"
     }
 ]

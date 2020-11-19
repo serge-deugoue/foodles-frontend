@@ -24,10 +24,7 @@ export class FoodStoreService {
   }
 
   constructor(private foodService: FoodService) { 
-    this.foodService.getFoodsList().subscribe(
-      // load data into the behaviour subject
-      result => this._foodList.next(result)
-    )
+    this.updateFoodList()
   }
 
   addFoodToBasket(foodId:number){
@@ -40,6 +37,16 @@ export class FoodStoreService {
     let newValue = {...this.foodBasket}
     newValue[foodId] = newValue[foodId]===1 ? null :  newValue[foodId]-1
     this._foodBasket.next(newValue)    
+  }
+
+  updateFoodList(){
+    this.foodService.getFoodsList().subscribe(
+      // load data into the behaviour subject
+      result => this._foodList.next(result)
+    )
+  }
+  clearBasket(){
+    this._foodBasket.next({})
   }
 
 }

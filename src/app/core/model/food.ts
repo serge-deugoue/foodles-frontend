@@ -3,5 +3,5 @@ export interface IFood{
     title: string;
     price: number;
     stock: number;
-    imageUrl:string
+    imageName:string
 }
