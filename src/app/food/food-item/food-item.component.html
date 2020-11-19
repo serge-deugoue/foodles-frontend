@@ -9,7 +9,7 @@
 
         <div class="card-body">
             <h6 class="card-title">{{food.title | truncate:38}}</h6>
-            <p class="card-text text-muted"> {{food.price | currency:'EUR':'symbol':'.2-2'}} </p>
+            <p class="card-text text-muted"> {{food.price | currency:'EUR':'symbol':'.2-2': 'fr'}} </p>
             <div class="d-flex flex-row-reverse">
                 <!-- if the item is not selected -->
                 <button *ngIf="!amtInBasket || amtInBasket===0 ; else controlsSelected" class="btn btn-sm select-btn"
@@ -25,7 +25,7 @@
 
                 </ng-template>
 
-                <p class='font-weight-bold mr-5' style="font-size: 0.75rem;"> Available: {{food.stock}}</p>
+                <p class='font-weight-bold  mr-5' style="font-size: 0.75rem;"> Stock: {{food.stock}}</p>
 
             </div>
         </div>

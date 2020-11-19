@@ -1,14 +1,15 @@
 <nav class="navbar navbar-dark">
 
-    <select class="custom-select" style="width: 40vw;" (change)="changeUser($event.target.value)">
-        <option [value]="undefined" selected disabled>Select a customer</option>
-        <option *ngFor="let user of users$ |async" [value]="user |json">{{userString(user)}}</option>
+    <select class="custom-select" style="width: 40vw;" [(ngModel)]="userIndex"
+        (change)="changeUser($event.target.value)">
+        <option [value]="undefined" disabled>Select a customer</option>
+        <option *ngFor="let user of users$ |async ;let i = index " [value]="i">{{userString(user)}}</option>
     </select>
 
     <ng-container>
         <button class="btn basket-btn" (click)="submitBasket()" *ngIf="basketTotal"> <i
                 class=" fa fa-shopping-basket mr-2"></i> <span class="font-weight-bold">
-                {{basketTotal | currency:'EUR':'symbol':'.2-2'}} </span>
+                {{basketTotal | currency:'EUR':'symbol':'.2-2':'fr'}} </span>
         </button>
     </ng-container>
 

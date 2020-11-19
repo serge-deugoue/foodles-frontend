@@ -29,21 +29,16 @@ export class UserStoreService {
     )
   }
 
-  setActiveUser(user:IUser){
-    this._activeUser.next(user)
+  setActiveUser(userIndex: number){
+    this._activeUser.next(this.userList[userIndex])
+
   }
 
-  updateUser(newUser:IUser){
+  updateUser(newUser:IUser, userIndex:number){
     // update user in user list
-    let index = 0
-    for(let i=0; i< this.userList.length;i++){
-      if(this.userList[i].id === newUser.id){
-        break
-      }
-    }
     let newList  = [...this.userList]
-    newList[index]=newUser
+    newList[userIndex]=newUser
     this._userList.next(newList)
-    this.setActiveUser(newUser)
+    
   }
 }

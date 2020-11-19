@@ -18,7 +18,8 @@ export class HomeComponent implements OnInit {
   users$: Observable<IUser[]>
   successMessage:string
   errorMessage:string 
-  
+  userIndex:number = undefined
+
   @ViewChild('errorAlert', {static: false}) errorAlert: NgbAlert;
   @ViewChild('successAlert', {static: false}) successAlert: NgbAlert;
 
@@ -60,7 +61,9 @@ export class HomeComponent implements OnInit {
   }
 
   userString(user:IUser){
-    return `${user.email} // ${user.credit} €`
+    let credit = ''+user.credit
+    credit =credit.replace('.', ',')
+    return `${user.email} // ${credit} €`
   }
 
   submitBasket(){
@@ -86,7 +89,7 @@ export class HomeComponent implements OnInit {
             this.foodStore.clearBasket()
 
             // order successful, update user
-            this.userStore.updateUser(result['updatedUser'])
+            this.userStore.updateUser(result['updatedUser'], this.userIndex)
             // update stocks
             this.foodStore.updateFoodList()
           }
@@ -102,9 +105,9 @@ export class HomeComponent implements OnInit {
     }
   }
 
-  changeUser(userString: string){
-    let user = JSON.parse(userString)
-    this.userStore.setActiveUser(user)
+  changeUser(userIndex: number){
+    this.userStore.setActiveUser(userIndex)
+    this.userIndex = userIndex
   }
 
 }
